@@ -9,12 +9,11 @@ export async function createSkillOfJobSeekerSummary(
       jobseeker.position
     } with ${jobseeker.experience} years of experience. Skills: ${(
       jobseeker.skills ?? []
-    ).join(", ")}. Well-being preferences: ${(
-      jobseeker.wellBeingPreferences ?? []
-    ).join(", ")}`;
+    ).join(", ")}.`;
     resolve(jobSeekerDetails);
   });
 }
+
 
 // TODO: Create embeddings for each well-being preference record
 export async function createWellBeingPreferencesSummary(
