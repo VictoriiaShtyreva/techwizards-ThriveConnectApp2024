@@ -4,6 +4,7 @@ import cors from "cors";
 import { createServer } from "http";
 
 import { errorHandler } from "./middleware/errorMiddleware";
+import jobSeekerRoutes from "./routes/jobSeekerRoutes";
 
 dotenv.config({ path: ".env" });
 
@@ -17,6 +18,8 @@ app.get("/", (req, res) => {
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use("/api/v1/jobseekers", jobSeekerRoutes);
 
 // Global error handling middleware
 app.use(errorHandler);
