@@ -5,9 +5,6 @@ const jobSeekerSchema = new Schema<IJobSeeker>({
   name: {
     type: String,
     required: [true, "Name is required"],
-    minlength: [2, "Name must be at least 2 characters long"],
-    maxlength: [50, "Name cannot exceed 50 characters"],
-    trim: true,
   },
   email: {
     type: String,
@@ -21,21 +18,10 @@ const jobSeekerSchema = new Schema<IJobSeeker>({
     required: [true, "Password is required"],
     minlength: [8, "Password must be at least 8 characters long"],
     maxlength: [100, "Password cannot exceed 100 characters"],
-    validate: {
-      validator: function (value: string) {
-        // Custom validator to ensure the password contains numbers and letters
-        return /[a-zA-Z]/.test(value) && /[0-9]/.test(value);
-      },
-      message: "Password must contain at least one letter and one number",
-    },
   },
   role: {
     type: String,
-    default: "jobseeker", // Set role to 'jobseeker' by default
-    enum: {
-      values: ["jobseeker"], // Only 'jobseeker' is allowed as a valid role
-      message: "{VALUE} is not a valid role",
-    },
+    default: "jobseeker",
   },
   skills: {
     type: [String],
@@ -56,10 +42,6 @@ const jobSeekerSchema = new Schema<IJobSeeker>({
   },
   experience: {
     type: String,
-    required: [true, "Experience details are required"],
-    minlength: [10, "Experience details must be at least 10 characters long"],
-    maxlength: [1000, "Experience details cannot exceed 1000 characters"],
-    trim: true,
   },
   wellBeingPreferences: {
     type: [String],
@@ -74,14 +56,14 @@ const jobSeekerSchema = new Schema<IJobSeeker>({
   skills_summary: {
     type: String,
     trim: true,
-    maxlength: [1000, "Skills summary cannot exceed 500 characters"],
+    maxlength: [1000, "Skills summary cannot exceed 1000 characters"],
   },
   wellBeingPreferences_summary: {
     type: String,
     trim: true,
     maxlength: [
       1000,
-      "Well-being preferences summary cannot exceed 500 characters",
+      "Well-being preferences summary cannot exceed 1000 characters",
     ],
   },
   skills_embedding: {
