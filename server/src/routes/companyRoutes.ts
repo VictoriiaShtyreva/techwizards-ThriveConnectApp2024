@@ -13,7 +13,6 @@ import {
 
 const router = express.Router();
 
-// Public route - Create a new company
 router.post("/", createCompanyHandler);
 router.get(
   "/:id",
@@ -39,11 +38,6 @@ router.delete(
   authorizeRoles(["company"]),
   deleteCompanyHandler
 );
-router.get(
-  "/",
-  tokenMiddleware,
-  authorizeRoles(["company"]),
-  getAllCompaniesWithPaginationHandler
-);
+router.get("/", getAllCompaniesWithPaginationHandler);
 
 export default router;
