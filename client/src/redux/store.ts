@@ -3,8 +3,7 @@ import { authApi } from "../redux/api/authSlice";
 import { feedbackApi } from "../redux/api/feedbackSlice";
 import { jobSeekerApi } from "./api/jobseekerSlice";
 import { companyApi } from "./api/companySlice";
-import { fetchUserSlice } from './api/fetchUserSlice';
-
+import { fetchUserSlice } from "./api/fetchUserSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,14 +11,14 @@ export const store = configureStore({
     [authApi.reducerPath]: authApi.reducer,
     [jobSeekerApi.reducerPath]: jobSeekerApi.reducer,
     [companyApi.reducerPath]: companyApi.reducer,
-    [fetchUserSlice.reducerPath]: fetchUserSlice.reducer
+    [fetchUserSlice.reducerPath]: fetchUserSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       feedbackApi.middleware,
       authApi.middleware,
       jobSeekerApi.middleware,
-      companyApi.middleware
+      companyApi.middleware,
       fetchUserSlice.middleware
     ),
 });
