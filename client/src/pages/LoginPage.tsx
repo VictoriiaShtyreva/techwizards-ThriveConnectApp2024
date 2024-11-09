@@ -5,12 +5,16 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { User,  Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+
+
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [login, { isLoading, error }] = useLoginMutation();
+  
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,15 +27,18 @@ const LoginPage: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  
+
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-
       const result = await login({ email, password }).unwrap();
       // Store token in local storage or state
       localStorage.setItem("token", result.token);
+
+      const decodedToken: any = jwtDecode(result.token);
+      const userRole = decodedToken.role;
+      const userId = decodedToken.id;
 
       toast.success("Login successful!", {
         position: "top-right",
@@ -42,8 +49,12 @@ const LoginPage: React.FC = () => {
         draggable: true,
         progress: undefined,
       });
-      console.log()
-      navigate("/profilePage")
+      
+      if(userRole === "jobseeker") {
+        navigate(`/jobSeeker-profile-page/${userId}`);
+      } else if (userRole === "company") {
+        navigate(`/company-profile-page/${userId}`);
+      }
     } catch (err) {
       console.error("Failed to login:", err);
       toast.error("Login failed. Please try again.", {
