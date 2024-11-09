@@ -1,9 +1,8 @@
-import mongoose from "mongoose";
+import { Document } from "mongoose";
+import { ICompany } from "./ICompany";
 
-export interface IMatch extends Document {
-  companyId: mongoose.Types.ObjectId;
-  jobDescriptionId: mongoose.Types.ObjectId;
-  skillScore: number;
-  valueScore: number;
-  finalScore: number;
+export interface IFeedback extends Document {
+  companyId: ICompany["_id"];
+  feedbackText: string;
+  sentiment: number;
 }
