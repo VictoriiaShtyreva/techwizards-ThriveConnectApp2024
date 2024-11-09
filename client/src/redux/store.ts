@@ -1,14 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { authApi } from '../redux/api/authSlice';
+import { fetchUserSlice } from './api/fetchUserSlice';
 
 export const store = configureStore({
   reducer: {
-    // Add the authApi reducer to the store
     [authApi.reducerPath]: authApi.reducer,
+    [fetchUserSlice.reducerPath]: fetchUserSlice.reducer
   },
-  // Adding the authApi middleware to enable caching, invalidation, etc.
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(authApi.middleware),
+    getDefaultMiddleware().concat(authApi.middleware, fetchUserSlice.middleware),
 });
 
 // Export types for usage with hooks
