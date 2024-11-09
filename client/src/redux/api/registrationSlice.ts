@@ -15,7 +15,6 @@ export const registerApi = createApi({
    reducerPath: 'registrationApi',
    baseQuery: fetchBaseQuery({
       baseUrl: 'http://localhost:3003/api/v1/companies',
-
    }),
    endpoints: (builder) => ({
       login: builder.mutation<RegistrationResponse, RegistrationRequest>({
