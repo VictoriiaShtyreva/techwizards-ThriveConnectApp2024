@@ -47,8 +47,8 @@ class JobMatchingAgent {
         company.companyProfile_embedding.map(Number)
       );
 
-      // Only proceed if matching score is above 50
-      if (matchingScore > 50) {
+      // Only proceed if matching score is above 80
+      if (matchingScore > 80) {
         const db = client.db("ThriveConnectApp");
 
         // Update JobSeeker's matchingList with companyId and score
@@ -107,7 +107,7 @@ class JobMatchingAgent {
       new MessagesPlaceholder("messages"),
     ]);
 
-    const highMatches = state.matches.filter((m) => m.score > 50).length;
+    const highMatches = state.matches.filter((m) => m.score > 80).length;
     const avgScore =
       state.matches.length > 0
         ? state.matches.reduce((acc, m) => acc + m.score, 0) /
@@ -117,7 +117,7 @@ class JobMatchingAgent {
     const message = new HumanMessage(`
       Matching Results:
       - Total pairs processed: ${state.processedPairs}
-      - Successful matches (>50% compatibility): ${highMatches}
+      - Successful matches (>80% compatibility): ${highMatches}
       - Average matching score: ${avgScore.toFixed(2)}%
       - Errors encountered: ${state.errors.length}
     `);

@@ -1,3 +1,4 @@
+/*
 import {
     ChatGoogleGenerativeAI,
     GoogleGenerativeAIEmbeddings,
@@ -26,3 +27,4 @@ const CompanySchema = z.object({
   companyCulture: z.string(),
   wellBeingMetrics: z.string(),
 });
+*/
