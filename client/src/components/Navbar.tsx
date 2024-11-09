@@ -4,12 +4,29 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { Briefcase, Building, BookOpen, Menu, X, User } from "lucide-react";
 import logo from "@/assets/logo.png";
+import { jwtDecode } from "jwt-decode";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const navigate = useNavigate();
   const user = localStorage.getItem("token");
+  const [userRole, setUserRole] = useState<string | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        const decodedToken: any = jwtDecode(token);
+        setUserRole(decodedToken.role);
+        setUserId(decodedToken.id);
+      } catch (error) {
+        console.error("Failed to decode token:", error);
+        // Handle token error (e.g., log out user or redirect to login)
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -80,7 +97,13 @@ export default function Navbar() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Link to="/profile">
+                  <Link
+                    to={
+                      userRole === "jobseeker"
+                        ? `/jobSeeker-profile-page/${userId}`
+                        : `/company-profile-page/${userId}`
+                    }
+                  >
                     <Button className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                       Profile Page
                     </Button>
