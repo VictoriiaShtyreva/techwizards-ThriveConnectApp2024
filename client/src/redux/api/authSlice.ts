@@ -7,7 +7,6 @@ interface LoginResponse {
 interface LoginRequest {
   email: string;
   password: string;
-  role: 'jobseeker' | 'company';
 }
 
 export const authApi = createApi({
