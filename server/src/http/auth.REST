@@ -4,6 +4,6 @@ Content-Type: application/json
 
 {
   "role": "company",
-  "email": "contact@techcorp.com",
-  "password": "securepassword"
+  "email": "contact@greentech.com",
+  "password": "greentechSecure456"
 }

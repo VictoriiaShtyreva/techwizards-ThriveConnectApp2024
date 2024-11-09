@@ -3,7 +3,9 @@ import Navbar from "./components/Navbar";
 import { Slide, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LandingPage from "./pages/LandingPage";
+import ResourcesPage from "./pages/ResourcesPage";
 import LoginPage from "./pages/LoginPage";
+
 
 function App() {
   return (
@@ -12,6 +14,7 @@ function App() {
       <Routes>
         <Route>
           <Route path="/" element={<LandingPage />} />
+          <Route path="/resources" element={<ResourcesPage />} />
           <Route path="/login" element={<LoginPage />}/>
         </Route>
       </Routes>
