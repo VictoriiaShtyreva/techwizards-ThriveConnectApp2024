@@ -1,0 +1,8 @@
+### Create a feedback
+POST http://localhost:3003/api/v1/feedback/672f256248dd4167eb2de6e1
+Content-Type: application/json
+
+{
+  "feedbackText": "Great work environment!",
+  "sentimentScore": 5
+}

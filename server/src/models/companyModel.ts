@@ -79,6 +79,15 @@ const companySchema = new Schema<ICompany>({
     ],
     default: [],
   },
+  feedback: {
+    type: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Feedback",
+      },
+    ],
+    default: [],
+  },
 });
 
 // JSON serialization for companySchema
