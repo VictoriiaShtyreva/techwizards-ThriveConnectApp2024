@@ -7,6 +7,7 @@ import { errorHandler } from "./middleware/errorMiddleware";
 import jobSeekerRoutes from "./routes/jobSeekerRoutes";
 import companyRoutes from "./routes/companyRoutes";
 import authRoutes from "./routes/authRoutes";
+import feedbackRoute from "./routes/feedbackRoutes";
 
 dotenv.config({ path: ".env" });
 
@@ -21,12 +22,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Routes for authentication
 app.use("/api/v1/auth", authRoutes);
-// Routes for companies
 app.use("/api/v1/companies", companyRoutes);
-// Routes for jobseeker
 app.use("/api/v1/jobseekers", jobSeekerRoutes);
+app.use("/api/v1/feedback", feedbackRoute);
 
 // Global error handling middleware
 app.use(errorHandler);

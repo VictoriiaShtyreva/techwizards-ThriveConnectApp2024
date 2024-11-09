@@ -4,5 +4,5 @@ import { ICompany } from "./ICompany";
 export interface IFeedback extends Document {
   companyId: ICompany["_id"];
   feedbackText: string;
-  sentiment: number;
+  sentimentScore: number;
 }

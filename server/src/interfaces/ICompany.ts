@@ -1,5 +1,6 @@
 import { Document } from "mongoose";
 import { IJobSeeker } from "./IJobSeeker";
+import { IFeedback } from "./IFeedback";
 
 export interface ICompany extends Document {
   name: string;
@@ -15,4 +16,5 @@ export interface ICompany extends Document {
   companyProfile_embedding: Number[];
   // Array of matched job seeker IDs
   matchingList: Array<{ jobSeekerId: IJobSeeker["_id"]; score: number }>;
+  feedback: IFeedback["_id"][];
 }
