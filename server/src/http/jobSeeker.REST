@@ -138,4 +138,18 @@ Content-Type: application/json
     "wellBeingPreferences": ["Supportive environment", "On-site childcare", "Flexible scheduling"]
   }
 
+### Create a Job Seeker 11
+POST http://localhost:3003/api/v1/jobseekers
+Content-Type: application/json
+
+  {
+    "name": "Priya Kaur",
+    "email": "ka@example.com",
+    "password": "SecurePassPriya",
+    "skills": ["Early Childhood Education", "Lesson Planning", "Behavior Management"],
+    "position": "Preschool Teacher",
+    "experience": 6,
+    "wellBeingPreferences": ["Supportive environment", "On-site childcare", "Flexible scheduling"]
+  }
+
 
