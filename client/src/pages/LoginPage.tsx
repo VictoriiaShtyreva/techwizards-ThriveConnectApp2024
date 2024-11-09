@@ -4,12 +4,14 @@ import { motion } from "framer-motion";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { User,  Eye, EyeOff } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [login, { isLoading, error }] = useLoginMutation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -27,9 +29,8 @@ const LoginPage: React.FC = () => {
 
       const result = await login({ email, password }).unwrap();
       // Store token in local storage or state
-      localStorage.setItem('token', result.token);
-      alert('Login successful!');
       localStorage.setItem("token", result.token);
+
       toast.success("Login successful!", {
         position: "top-right",
         autoClose: 3000,
@@ -39,6 +40,8 @@ const LoginPage: React.FC = () => {
         draggable: true,
         progress: undefined,
       });
+      console.log()
+      navigate("/")
     } catch (err) {
       console.error("Failed to login:", err);
       toast.error("Login failed. Please try again.", {
