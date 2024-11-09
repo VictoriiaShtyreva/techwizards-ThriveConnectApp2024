@@ -57,12 +57,12 @@ const CompanyProfilePage = () => {
                 />
                 <AvatarFallback>{company?.name.charAt(0)}</AvatarFallback>
               </Avatar>
-              <div className="ml-28 pt-4">
+              <div className="ml-28 pt-4 py-2">
                 <CardTitle className="text-3xl font-bold">
                   {company?.name}
                 </CardTitle>
                 <CardDescription className="text-xl">
-                  {company?.jobTitle}
+                  Hiring {company?.jobTitle}
                 </CardDescription>
               </div>
             </div>

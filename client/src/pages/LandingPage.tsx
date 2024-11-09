@@ -14,7 +14,6 @@ import {
 import Marquee from "@/components/ui/marquee";
 import { jwtDecode } from "jwt-decode";
 
-
 const jobTitles = [
   "Software Engineer",
   "Product Manager",
@@ -107,7 +106,7 @@ export default function LandingPage() {
                 </p>
                 <Button variant="link" asChild className="group relative z-10">
                   <Link to="/job-seeker" className="flex items-center">
-                    Create Profile
+                    Explore more
                     <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
@@ -129,7 +128,7 @@ export default function LandingPage() {
                 </p>
                 <Button variant="link" asChild className="group relative z-10">
                   <Link to="/company" className="flex items-center">
-                    Post a Job
+                    Explore more
                     <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
