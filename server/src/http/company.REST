@@ -1,0 +1,27 @@
+### Create a company profile:
+POST http://localhost:3003/api/v1/companies
+Content-Type: application/json
+
+{
+  "name": "aava",
+  "email": "contact@aava.com",
+  "password": "securepassword",
+  "companyCulture": "Innovative and supportive",
+  "wellBeingMetrics": "Work-life balance, Employee support",
+  "jobTitle": "Software Engineer",
+  "skillsRequired": ["JavaScript", "Node.js", "Express"],
+  "experienceRequired": 5
+}
+
+### Get all companies:
+GET http://localhost:3003/api/v1/companies/
+
+### Get a company by ID:
+GET http://localhost:3003/api/v1/companies/:id
+
+### Update a company by ID:
+PATCH http://localhost:3003/api/v1/companies/:id
+
+
+### Delete a company by ID:
+DELETE http://localhost:3003/api/v1/companies/:id

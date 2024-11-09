@@ -9,8 +9,6 @@ export interface IJobSeeker extends Document {
   position: string;
   experience: string;
   wellBeingPreferences: string[];
-  skills_summary: string;
-  wellBeingPreferences_summary: string;
-  skills_embedding: Number[];
-  wellBeingPreferences_embedding: Number[];
+  jobSeekerProfile_summary: string;
+  jobSeekerProfile_embedding: Number[];
 }

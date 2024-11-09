@@ -1,5 +1,4 @@
 import { Document } from "mongoose";
-import { IJobDescription } from "./IJobDescription";
 
 export interface ICompany extends Document {
   name: string;
@@ -8,7 +7,9 @@ export interface ICompany extends Document {
   role: string;
   companyCulture: string;
   wellBeingMetrics: string;
-  jobDescriptions: IJobDescription["_id"][];
-  companyValue_summary: string;
-  companyValue_embedding: Number[];
+  jobTitle: string;
+  skillsRequired: string[];
+  experienceRequired: string;
+  companyProfile_summary: string;
+  companyProfile_embedding: Number[];
 }
