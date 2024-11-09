@@ -1,4 +1,5 @@
 import { Document } from "mongoose";
+import { ICompany } from "./ICompany";
 
 export interface IJobSeeker extends Document {
   name: string;
@@ -11,4 +12,6 @@ export interface IJobSeeker extends Document {
   wellBeingPreferences: string[];
   jobSeekerProfile_summary: string;
   jobSeekerProfile_embedding: Number[];
+  // Array of matched company IDs
+  matchingList: ICompany["_id"][];
 }

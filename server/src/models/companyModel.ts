@@ -70,6 +70,11 @@ const companySchema = new Schema<ICompany>({
       message: "Company profile embedding must be an array of numbers",
     },
   },
+  matchingList: {
+    type: [Schema.Types.ObjectId],
+    ref: "JobSeeker",
+    default: [],
+  },
 });
 
 // JSON serialization for companySchema

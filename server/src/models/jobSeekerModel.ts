@@ -71,6 +71,13 @@ const jobSeekerSchema = new Schema<IJobSeeker>({
       message: "Jobseeker profile embedding must be an array of numbers",
     },
   },
+  matchingList: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Company",
+      default: [],
+    },
+  ],
 });
 
 // JSON serialization for jobSeekerSchema
