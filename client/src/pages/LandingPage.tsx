@@ -115,7 +115,7 @@ export default function LandingPage() {
           )}
 
           {/* Render For Companies Card only if no token, or role is jobseeker */}
-          {(!userRole || userRole === "jobseeker") && (
+          {(!userRole || userRole === "company") && (
             <Card className="overflow-hidden group hover:shadow-2xl transition-shadow duration-300">
               <CardContent className="p-6 relative">
                 <Building className="w-12 h-12 text-indigo-500 mb-4 relative z-10" />
