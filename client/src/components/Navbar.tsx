@@ -80,9 +80,11 @@ export default function Navbar() {
               </Link>
             </motion.div>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600">
-                Sign Up
-              </Button>
+              <Link to="/signup">
+                <Button className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600">
+                  Sign Up
+                </Button>
+              </Link>
             </motion.div>
           </div>
 
