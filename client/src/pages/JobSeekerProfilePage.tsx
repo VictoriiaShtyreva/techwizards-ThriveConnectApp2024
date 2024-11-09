@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import { JobSeeker } from "@/misc/jobseekers";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const JobSeekerProfilePage = () => {

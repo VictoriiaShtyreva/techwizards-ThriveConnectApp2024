@@ -145,16 +145,12 @@ const JobSeekerSignUpPage: React.FC = () => {
 
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2">
-                Skills (comma-separated)
+                Skills
               </label>
               <input
                 type="text"
-                value={skills.join(", ")}
-                onChange={(e) =>
-                  setSkills(
-                    e.target.value.split(",").map((skill) => skill.trim())
-                  )
-                }
+                value={skills.join(" ")}
+                onChange={(e) => setSkills([e.target.value])}
                 placeholder="e.g., JavaScript, React, Node.js"
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               />
@@ -176,7 +172,7 @@ const JobSeekerSignUpPage: React.FC = () => {
 
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2">
-                Experience
+                Experience (years)
               </label>
               <input
                 type="text"
@@ -189,18 +185,12 @@ const JobSeekerSignUpPage: React.FC = () => {
 
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2">
-                Well-Being Preferences (comma-separated)
+                Well-Being Preferences
               </label>
               <input
                 type="text"
-                value={wellBeingPreferences.join(", ")}
-                onChange={(e) =>
-                  setWellBeingPreferences(
-                    e.target.value
-                      .split(",")
-                      .map((preference) => preference.trim())
-                  )
-                }
+                value={wellBeingPreferences.join(" ")}
+                onChange={(e) => setWellBeingPreferences([e.target.value])}
                 placeholder="e.g., Flexible hours, Remote work"
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               />
