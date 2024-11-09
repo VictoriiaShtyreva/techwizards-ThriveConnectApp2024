@@ -49,7 +49,7 @@ Content-Type: application/json
 
   {
     "name": "CulinaryArts Inc.",
-    "email": "careers@culinaryarts.com",
+    "email": "caree@culinaryarts.com",
     "password": "ChefLife456",
     "companyCulture": "Creative and high-paced",
     "wellBeingMetrics": "Free meals, Creative freedom",
@@ -147,6 +147,21 @@ Content-Type: application/json
     "skillsRequired": ["Food Science", "R&D", "Quality Control"],
     "experienceRequired": 4
   }
+
+### Create a company profile: 11
+POST http://localhost:3003/api/v1/companies
+Content-Type: application/json
+
+{
+  "name": "BrightFuture Robotics",
+  "email": "aeee@brightfuture.com",
+  "password": "BrightRobotPass2024",
+  "companyCulture": "Innovative and team-oriented",
+  "wellBeingMetrics": "Cutting-edge technology, Collaborative environment, Health and wellness programs",
+  "jobTitle": "Robotics Engineer",
+  "skillsRequired": ["Robotics", "Python", "Machine Learning", "Mechanical Engineering"],
+  "experienceRequired": 6
+}
 
 ### Get all companies:
 GET http://localhost:3003/api/v1/companies/
