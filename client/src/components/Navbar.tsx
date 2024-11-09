@@ -18,7 +18,7 @@ export default function Navbar() {
   }, []);
 
   const navItems = [
-    { title: "Find Jobs", path: "/jobs", icon: Briefcase },
+    { title: "Job seekers", path: "/jobseekers", icon: Briefcase },
     { title: "Companies", path: "/companies", icon: Building },
     { title: "Resources", path: "/resources", icon: BookOpen },
   ];

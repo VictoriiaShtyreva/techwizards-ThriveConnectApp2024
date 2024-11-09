@@ -7,7 +7,7 @@ const CompanyProfilePage = () => {
 
    const { data, error, isLoading } = useGetCompanyByIdQuery(id!);
 
-   if (isLoading) return <div>Loading...</div>;  // Handle loading state
+   if (isLoading) return <div>Loading...</div>; 
    if (error) return <div>Error loading profile</div>; 
 
 
