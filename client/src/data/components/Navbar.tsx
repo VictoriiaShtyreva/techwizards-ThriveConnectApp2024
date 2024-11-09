@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
@@ -49,7 +49,7 @@ export default function Navbar() {
 
           {/* Desktop menu */}
           <div className="hidden md:flex items-center space-x-4">
-            {navItems.map((item) => (
+            {navItems.map((item, index) => (
               <Link
                 key={item.title}
                 to={item.path}
@@ -149,11 +149,9 @@ export default function Navbar() {
                     Sign In
                   </Button>
                 </Link>
-                <Link to="/signup">
-                  <Button className="w-full bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600">
-                    Sign Up
-                  </Button>
-                </Link>
+                <Button className="w-full bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600">
+                  Sign Up
+                </Button>
               </div>
             </div>
           </motion.div>

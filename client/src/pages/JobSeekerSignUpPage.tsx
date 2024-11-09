@@ -4,8 +4,9 @@ import { motion } from "framer-motion";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Eye, EyeOff } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-const SignUpPage: React.FC = () => {
+const JobSeekerSignUpPage: React.FC = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,6 +20,7 @@ const SignUpPage: React.FC = () => {
   const [jobSeekerProfileSummary, setJobSeekerProfileSummary] = useState("");
 
   const [createJobSeeker, { isLoading }] = useCreateJobSeekerMutation();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,6 +49,10 @@ const SignUpPage: React.FC = () => {
         draggable: true,
         progress: undefined,
       });
+      // Redirect to the login page after successful sign-up
+      setTimeout(() => {
+        navigate("/login");
+      }, 3000); // 3-second delay before redirecting
       // Reset form fields
       setName("");
       setEmail("");
@@ -80,11 +86,11 @@ const SignUpPage: React.FC = () => {
       >
         <form
           onSubmit={handleSubmit}
-          className="bg-white shadow-2xl rounded-lg px-8 pt-6 pb-8 mb-4 overflow-hidden relative"
+          className="bg-white shadow-2xl rounded-lg px-8 pt-6 pb-8 mb-4 mt-20 overflow-hidden relative"
         >
           <div className="relative z-10">
             <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
-              Create Your Account
+              Create Your JobSeeker Account
             </h2>
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -233,4 +239,4 @@ const SignUpPage: React.FC = () => {
   );
 };
 
-export default SignUpPage;
+export default JobSeekerSignUpPage;
