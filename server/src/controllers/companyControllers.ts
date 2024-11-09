@@ -1,9 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import {
-  addJobDescription,
   createCompany,
   deleteCompanyById,
-  fetchAllCompaniesWithPagination,
+  fetchAllCompanies,
   getCompanyById,
   updateCompanyProfile,
 } from "../services/companyServices";
@@ -50,24 +49,6 @@ export const updateCompanyProfileHandler = async (
   }
 };
 
-// Controller to add a job description to a company
-export const addJobDescriptionHandler = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> => {
-  try {
-    const { jobDescriptionId } = req.body;
-    const updatedCompany = await addJobDescription(
-      req.params.id,
-      jobDescriptionId
-    );
-    res.status(200).json(updatedCompany);
-  } catch (error) {
-    next(error);
-  }
-};
-
 // Controller to delete a company by ID
 export const deleteCompanyHandler = async (
   req: Request,
@@ -82,21 +63,15 @@ export const deleteCompanyHandler = async (
   }
 };
 
-// Controller to fetch all companies with pagination
-export const getAllCompaniesWithPaginationHandler = async (
+// Controller to fetch all companies
+export const getAllCompanies = async (
   req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const page = parseInt(req.query.page as string) || 1; // Default to page 1
-  const limit = parseInt(req.query.limit as string) || 10; // Default to limit 10
-
   try {
-    const { companies, total } = await fetchAllCompaniesWithPagination(
-      page,
-      limit
-    );
-    res.status(200).json({ companies, total, page, limit });
+    const companies = await fetchAllCompanies();
+    res.status(200).json(companies);
   } catch (error) {
     next(error);
   }

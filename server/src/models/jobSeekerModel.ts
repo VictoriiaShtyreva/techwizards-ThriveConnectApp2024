@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import { IJobSeeker } from "../interfaces/IJobSeeker";
 
 const jobSeekerSchema = new Schema<IJobSeeker>({
@@ -16,12 +16,14 @@ const jobSeekerSchema = new Schema<IJobSeeker>({
   password: {
     type: String,
     required: [true, "Password is required"],
-    minlength: [8, "Password must be at least 8 characters long"],
-    maxlength: [100, "Password cannot exceed 100 characters"],
   },
   role: {
     type: String,
     default: "jobseeker",
+    enum: {
+      values: ["jobseeker"],
+      message: "{VALUE} is not a valid role",
+    },
   },
   skills: {
     type: [String],
@@ -53,20 +55,10 @@ const jobSeekerSchema = new Schema<IJobSeeker>({
       message: "At least one well-being preference must be provided",
     },
   },
-  skills_summary: {
+  jobSeekerProfile_summary: {
     type: String,
-    trim: true,
-    maxlength: [1000, "Skills summary cannot exceed 1000 characters"],
   },
-  wellBeingPreferences_summary: {
-    type: String,
-    trim: true,
-    maxlength: [
-      1000,
-      "Well-being preferences summary cannot exceed 1000 characters",
-    ],
-  },
-  skills_embedding: {
+  jobSeekerProfile_embedding: {
     type: [Number],
     default: [],
     validate: {
@@ -76,20 +68,7 @@ const jobSeekerSchema = new Schema<IJobSeeker>({
           embedding.every((num) => typeof num === "number")
         );
       },
-      message: "Skills embedding must be an array of numbers",
-    },
-  },
-  wellBeingPreferences_embedding: {
-    type: [Number],
-    default: [],
-    validate: {
-      validator: function (embedding: number[]) {
-        return (
-          embedding.length === 0 ||
-          embedding.every((num) => typeof num === "number")
-        );
-      },
-      message: "Well-being preferences embedding must be an array of numbers",
+      message: "Jobseeker profile embedding must be an array of numbers",
     },
   },
 });
@@ -100,7 +79,7 @@ jobSeekerSchema.set("toJSON", {
     returnedObject.id = returnedObject._id;
     delete returnedObject._id;
     delete returnedObject.__v;
-    delete returnedObject.password; // Do not expose password
+    delete returnedObject.password;
   },
 });
 

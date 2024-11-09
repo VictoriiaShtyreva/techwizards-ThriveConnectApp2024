@@ -1,12 +1,9 @@
 import express from "express";
 
-import { tokenMiddleware } from "../middleware/tokenMiddleware";
-import { authorizeRoles } from "../middleware/authMiddleware";
 import {
-  addJobDescriptionHandler,
   createCompanyHandler,
   deleteCompanyHandler,
-  getAllCompaniesWithPaginationHandler,
+  getAllCompanies,
   getCompanyByIdHandler,
   updateCompanyProfileHandler,
 } from "../controllers/companyControllers";
@@ -14,30 +11,9 @@ import {
 const router = express.Router();
 
 router.post("/", createCompanyHandler);
-router.get(
-  "/:id",
-  tokenMiddleware,
-  authorizeRoles(["company"]),
-  getCompanyByIdHandler
-);
-router.put(
-  "/:id",
-  tokenMiddleware,
-  authorizeRoles(["company"]),
-  updateCompanyProfileHandler
-);
-router.post(
-  "/:id/job-description",
-  tokenMiddleware,
-  authorizeRoles(["company"]),
-  addJobDescriptionHandler
-);
-router.delete(
-  "/:id",
-  tokenMiddleware,
-  authorizeRoles(["company"]),
-  deleteCompanyHandler
-);
-router.get("/", getAllCompaniesWithPaginationHandler);
+router.get("/:id", getCompanyByIdHandler);
+router.put("/:id", updateCompanyProfileHandler);
+router.delete("/:id", deleteCompanyHandler);
+router.get("/", getAllCompanies);
 
 export default router;

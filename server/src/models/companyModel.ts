@@ -19,50 +19,45 @@ const companySchema = new Schema<ICompany>({
   password: {
     type: String,
     required: [true, "Password is required"],
-    minlength: [8, "Password must be at least 8 characters long"],
-    maxlength: [100, "Password cannot exceed 100 characters"],
-    validate: {
-      validator: function (value: string) {
-        // Custom validator to ensure the password contains numbers and letters
-        return /[a-zA-Z]/.test(value) && /[0-9]/.test(value);
-      },
-      message: "Password must contain at least one letter and one number",
-    },
   },
   role: {
     type: String,
-    default: "company", // Set role to 'company' by default
+    default: "company",
     enum: {
-      values: ["company"], // Only 'company' is allowed as a valid role
+      values: ["company"],
       message: "{VALUE} is not a valid role",
     },
   },
   companyCulture: {
     type: String,
     required: [true, "Company culture is required"],
-    minlength: [10, "Company culture must be at least 10 characters long"],
-    maxlength: [1000, "Company culture cannot exceed 1000 characters"],
-    trim: true,
   },
   wellBeingMetrics: {
     type: String,
     required: [true, "Well-being metrics are required"],
-    minlength: [10, "Well-being metrics must be at least 10 characters long"],
-    maxlength: [1000, "Well-being metrics cannot exceed 1000 characters"],
-    trim: true,
   },
-  jobDescriptions: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "JobDescription",
-    },
-  ],
-  companyValue_summary: {
+  jobTitle: {
     type: String,
-    trim: true,
-    maxlength: [500, "Company value summary cannot exceed 500 characters"],
+    required: [true, "Job title is required"],
   },
-  companyValue_embedding: {
+  skillsRequired: {
+    type: [String],
+    validate: {
+      validator: function (skills: string[]) {
+        return skills.length > 0;
+      },
+      message: "At least one skill must be provided",
+    },
+    required: [true, "Skills are required"],
+  },
+  experienceRequired: {
+    type: String,
+    required: [true, "Experience is required"],
+  },
+  companyProfile_summary: {
+    type: String,
+  },
+  companyProfile_embedding: {
     type: [Number],
     default: [],
     validate: {
@@ -72,7 +67,7 @@ const companySchema = new Schema<ICompany>({
           embedding.every((num) => typeof num === "number")
         );
       },
-      message: "Company value embedding must be an array of numbers",
+      message: "Company profile embedding must be an array of numbers",
     },
   },
 });
@@ -83,7 +78,7 @@ companySchema.set("toJSON", {
     returnedObject.id = returnedObject._id;
     delete returnedObject._id;
     delete returnedObject.__v;
-    delete returnedObject.password; // Do not expose password
+    delete returnedObject.password;
   },
 });
 

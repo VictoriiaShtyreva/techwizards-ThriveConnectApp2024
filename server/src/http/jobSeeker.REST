@@ -3,10 +3,9 @@ POST http://localhost:3003/api/v1/jobseekers
 Content-Type: application/json
 
 {
-  "name": "John Doe",
-  "email": "johndoe@example.com",
+  "name": "John Doe 456",
+  "email": "johndoe456@example.com",
   "password": "securePassword123",
-  "role": "Software Engineer",
   "skills": ["JavaScript", "Node.js", "Express"],
   "position": "Backend Developer",
   "experience": 5,

@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt";
 import { JobSeekerModel } from "../models/jobSeekerModel";
 import { IJobSeeker } from "../interfaces/IJobSeeker";
 import {
@@ -5,17 +6,8 @@ import {
   BadRequestError,
   InternalServerError,
 } from "../errors/ApiError";
-
-import { GoogleGenerativeAIEmbeddings } from "@langchain/google-genai";
-import {
-  createSkillOfJobSeekerSummary,
-  createWellBeingPreferencesSummary,
-} from "../langchain/summaries/summarizeJobseeker";
-
-const llm = new GoogleGenerativeAIEmbeddings({
-  model: "text-embedding-004",
-  apiKey: "qwertyuiopasdfghjklzxcvbnm123456",
-});
+import { createJobSeekerProfileSummary } from "../langchain/summaries/summarizeJobseeker";
+import { embeddingllm } from "../langchain/llms";
 
 export const createJobSeeker = async (
   jobSeekerData: Partial<IJobSeeker>
@@ -24,7 +16,6 @@ export const createJobSeeker = async (
     name,
     email,
     password,
-    role,
     skills,
     position,
     experience,
@@ -35,7 +26,6 @@ export const createJobSeeker = async (
     !name ||
     !email ||
     !password ||
-    !role ||
     !skills ||
     !position ||
     !experience ||
@@ -51,30 +41,29 @@ export const createJobSeeker = async (
   }
 
   try {
-    const skillsSummary = await createSkillOfJobSeekerSummary(jobSeekerData);
-    const wellBeingPreferencesSummary = await createWellBeingPreferencesSummary(
+    const jobSeekerProfileSummary = await createJobSeekerProfileSummary(
       jobSeekerData
     );
 
-    const skillsEmbeddings = await llm.embedQuery(skillsSummary);
-    const wellBeingPreferencesEmbeddings = await llm.embedQuery(
-      wellBeingPreferencesSummary
+    const jobSeekerProfileEmbeddings = await embeddingllm.embedQuery(
+      jobSeekerProfileSummary
     );
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create a new Job Seeker
     const newJobSeeker = new JobSeekerModel({
       name,
       email,
-      password,
-      role,
+      password: hashedPassword,
       skills,
       position,
       experience,
       wellBeingPreferences,
-      skills_summary: skillsSummary,
-      wellBeingPreferences_summary: wellBeingPreferencesSummary,
-      skills_embedding: skillsEmbeddings,
-      wellBeingPreferences_embedding: wellBeingPreferencesEmbeddings,
+      jobSeekerProfile_summary: jobSeekerProfileSummary,
+      jobSeekerProfile_embedding: jobSeekerProfileEmbeddings,
+      role: "jobseeker",
     });
 
     return await newJobSeeker.save();
@@ -108,8 +97,8 @@ export const getJobSeekerById = async (id: string): Promise<IJobSeeker> => {
 // Update Job Seeker by ID
 export const updateJobSeekerById = async (
   id: string,
-  jobSeekerData: Partial<IJobSeeker>
-): Promise<IJobSeeker> => {
+  updatedJobSeekerData: Partial<IJobSeeker>
+): Promise<IJobSeeker | null> => {
   try {
     const jobSeeker = await JobSeekerModel.findById(id);
     if (!jobSeeker) {
@@ -120,18 +109,15 @@ export const updateJobSeekerById = async (
       name,
       email,
       password,
-      role,
       skills,
       position,
       experience,
       wellBeingPreferences,
-    } = jobSeekerData;
+    } = updatedJobSeekerData;
 
     if (
       !name ||
       !email ||
-      !password ||
-      !role ||
       !skills ||
       !position ||
       !experience ||
@@ -140,30 +126,25 @@ export const updateJobSeekerById = async (
       throw new BadRequestError("Missing required fields");
     }
 
-    const skillsSummary = await createSkillOfJobSeekerSummary(jobSeekerData);
-
-    const wellBeingPreferencesSummary = await createWellBeingPreferencesSummary(
-      jobSeekerData
+    const jobSeekerProfileSummary = await createJobSeekerProfileSummary(
+      updatedJobSeekerData
     );
 
-    const skillsEmbeddings = await llm.embedQuery(skillsSummary);
-
-    const wellBeingPreferencesEmbeddings = await llm.embedQuery(
-      wellBeingPreferencesSummary
+    const jobSeekerProfileEmbeddings = await embeddingllm.embedQuery(
+      jobSeekerProfileSummary
     );
 
     jobSeeker.name = name;
     jobSeeker.email = email;
-    jobSeeker.password = password;
-    jobSeeker.role = role;
+    if (password) {
+      jobSeeker.password = await bcrypt.hash(password, 10);
+    }
     jobSeeker.skills = skills;
     jobSeeker.position = position;
     jobSeeker.experience = experience;
     jobSeeker.wellBeingPreferences = wellBeingPreferences;
-    jobSeeker.skills_summary = skillsSummary;
-    jobSeeker.wellBeingPreferences_summary = wellBeingPreferencesSummary;
-    jobSeeker.skills_embedding = skillsEmbeddings;
-    jobSeeker.wellBeingPreferences_embedding = wellBeingPreferencesEmbeddings;
+    jobSeeker.jobSeekerProfile_summary = jobSeekerProfileSummary;
+    jobSeeker.jobSeekerProfile_embedding = jobSeekerProfileEmbeddings;
 
     return await jobSeeker.save();
   } catch (error: any) {

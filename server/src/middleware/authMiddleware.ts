@@ -1,14 +1,26 @@
 import { Request, Response, NextFunction } from "express";
+import jwt from "jsonwebtoken";
+import { UnauthorizedError } from "../errors/ApiError";
 
-export const authorizeRoles = (roles: string[]) => {
-  return (req: Request, res: Response, next: NextFunction) => {
-    const user = (req as any).user;
+export const authenticateToken = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const token = req.header("Authorization")?.replace("Bearer ", "");
 
-    if (!user || !roles.includes(user.role)) {
-      return res.status(403).json({
-        message: "Access denied. Insufficient permissions.",
-      });
-    }
+  if (!token) {
+    throw new UnauthorizedError("Access token is missing");
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as {
+      id: string;
+      role: string;
+    };
+    req.user = { companyId: decoded.id, role: decoded.role };
     next();
-  };
+  } catch (error) {
+    next(new UnauthorizedError("Invalid token"));
+  }
 };
