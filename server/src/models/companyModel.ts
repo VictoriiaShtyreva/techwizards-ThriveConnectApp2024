@@ -71,8 +71,12 @@ const companySchema = new Schema<ICompany>({
     },
   },
   matchingList: {
-    type: [Schema.Types.ObjectId],
-    ref: "JobSeeker",
+    type: [
+      {
+        jobSeekerId: { type: Schema.Types.ObjectId, ref: "JobSeeker" },
+        score: { type: Number, required: true },
+      },
+    ],
     default: [],
   },
 });

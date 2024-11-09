@@ -13,5 +13,5 @@ export interface IJobSeeker extends Document {
   jobSeekerProfile_summary: string;
   jobSeekerProfile_embedding: Number[];
   // Array of matched company IDs
-  matchingList: ICompany["_id"][];
+  matchingList: Array<{ companyId: ICompany["_id"]; score: number }>;
 }

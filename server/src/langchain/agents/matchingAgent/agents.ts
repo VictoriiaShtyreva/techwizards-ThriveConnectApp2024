@@ -1,40 +1,39 @@
 import { config } from "dotenv";
 import { ChatGroq } from "@langchain/groq";
 import { AIMessage, HumanMessage } from "@langchain/core/messages";
-import { ChatPromptTemplate, MessagesPlaceholder } from "@langchain/core/prompts";
-import { StringOutputParser } from "@langchain/core/output_parsers";
+import {
+  ChatPromptTemplate,
+  MessagesPlaceholder,
+} from "@langchain/core/prompts";
 import { MongoClient, ObjectId } from "mongodb";
 import { IMatchingState, IMatchResult } from "./matchingTypes";
 import { IJobSeeker } from "../../../interfaces/IJobSeeker";
 import { ICompany } from "../../../interfaces/ICompany";
+import { SYSTEM_TEMPLATE } from "../../prompts/prompts";
 
 config();
 
-const SYSTEM_TEMPLATE = `You are a job matching assistant that analyzes the compatibility between job seekers and companies.
-Current time: {time}
-Your task is to:
-1. Process the matching results
-2. Analyze the compatibility scores
-3. Provide insights about the matches
-
-Format your response as:
-THOUGHT: your analysis process
-ACTION: what action you're taking
-REFLECTION: insights about the results
-=== 
-Final summary and recommendations`;
-
 class JobMatchingAgent {
-  private static async cosineSimilarity(vectorA: number[], vectorB: number[]): Promise<number> {
+  private static async cosineSimilarity(
+    vectorA: number[],
+    vectorB: number[]
+  ): Promise<number> {
     if (vectorA.length !== vectorB.length) {
       throw new Error("Vectors must have the same length");
     }
 
-    const dotProduct = vectorA.reduce((acc, val, i) => acc + val * vectorB[i], 0);
-    const magnitudeA = Math.sqrt(vectorA.reduce((acc, val) => acc + val * val, 0));
-    const magnitudeB = Math.sqrt(vectorB.reduce((acc, val) => acc + val * val, 0));
+    const dotProduct = vectorA.reduce(
+      (acc, val, i) => acc + val * vectorB[i],
+      0
+    );
+    const magnitudeA = Math.sqrt(
+      vectorA.reduce((acc, val) => acc + val * val, 0)
+    );
+    const magnitudeB = Math.sqrt(
+      vectorB.reduce((acc, val) => acc + val * val, 0)
+    );
 
-    return ((dotProduct / (magnitudeA * magnitudeB)) + 1) * 50;
+    return (dotProduct / (magnitudeA * magnitudeB) + 1) * 50;
   }
 
   private static async processMatches(
@@ -48,25 +47,41 @@ class JobMatchingAgent {
         company.companyProfile_embedding.map(Number)
       );
 
-      // Update matching lists if score > 50
+      // Only proceed if matching score is above 50
       if (matchingScore > 50) {
         const db = client.db("ThriveConnectApp");
-        await Promise.all([
-          db.collection("jobseekers").updateOne(
-            { _id: jobSeeker._id as ObjectId },
-            { $addToSet: { matchingList: company._id } }
-          ),
-          db.collection("companies").updateOne(
-            { _id: company._id as ObjectId },
-            { $addToSet: { matchingList: jobSeeker._id } }
-          )
-        ]);
+
+        // Update JobSeeker's matchingList with companyId and score
+        await db.collection("jobseekers").updateOne(
+          { _id: jobSeeker._id as ObjectId },
+          {
+            $addToSet: {
+              matchingList: {
+                companyId: company._id,
+                score: matchingScore,
+              },
+            },
+          }
+        );
+
+        // Update Company's matchingList with jobSeekerId and score
+        await db.collection("companies").updateOne(
+          { _id: company._id as ObjectId },
+          {
+            $addToSet: {
+              matchingList: {
+                jobSeekerId: jobSeeker._id,
+                score: matchingScore,
+              },
+            },
+          }
+        );
       }
 
       return {
         jobSeekerId: (jobSeeker._id as ObjectId).toString(),
         companyId: (company._id as ObjectId).toString(),
-        score: matchingScore
+        score: matchingScore,
       };
     } catch (error) {
       console.error("Error processing match:", error);
@@ -79,10 +94,12 @@ class JobMatchingAgent {
     console.log(content.trim());
   }
 
-  private static async generateAnalysis(state: IMatchingState): Promise<string> {
+  private static async generateAnalysis(
+    state: IMatchingState
+  ): Promise<string> {
     const model = new ChatGroq({
       apiKey: process.env.GROQ_API_KEY as string,
-      modelName: "mixtral-8x7b-32768"
+      modelName: "mixtral-8x7b-32768",
     });
 
     const prompt = ChatPromptTemplate.fromMessages([
@@ -90,10 +107,12 @@ class JobMatchingAgent {
       new MessagesPlaceholder("messages"),
     ]);
 
-    const highMatches = state.matches.filter(m => m.score > 50).length;
-    const avgScore = state.matches.length > 0
-      ? state.matches.reduce((acc, m) => acc + m.score, 0) / state.matches.length
-      : 0;
+    const highMatches = state.matches.filter((m) => m.score > 50).length;
+    const avgScore =
+      state.matches.length > 0
+        ? state.matches.reduce((acc, m) => acc + m.score, 0) /
+          state.matches.length
+        : 0;
 
     const message = new HumanMessage(`
       Matching Results:
@@ -138,7 +157,7 @@ class JobMatchingAgent {
       processedPairs: 0,
       errors: [],
       currentThought: "",
-      reasoning: []
+      reasoning: [],
     };
 
     try {
@@ -146,28 +165,33 @@ class JobMatchingAgent {
 
       // Fetch profiles
       const [jobSeekers, companies] = await Promise.all([
-        db.collection<IJobSeeker>("jobseekers")
+        db
+          .collection<IJobSeeker>("jobseekers")
           .find({ jobSeekerProfile_embedding: { $exists: true, $ne: [] } })
           .toArray(),
-        db.collection<ICompany>("companies")
+        db
+          .collection<ICompany>("companies")
           .find({ companyProfile_embedding: { $exists: true, $ne: [] } })
-          .toArray()
+          .toArray(),
       ]);
 
       // Process matches
-      const matchPromises = jobSeekers.flatMap(jobSeeker =>
-        companies.map(company => this.processMatches(client, jobSeeker, company))
+      const matchPromises = jobSeekers.flatMap((jobSeeker) =>
+        companies.map((company) =>
+          this.processMatches(client, jobSeeker, company)
+        )
       );
 
-      const matches = (await Promise.all(matchPromises)).filter((match): match is IMatchResult => match !== null);
-      
+      const matches = (await Promise.all(matchPromises)).filter(
+        (match): match is IMatchResult => match !== null
+      );
+
       state.matches = matches;
       state.processedPairs = matches.length;
 
       // Generate analysis
       const analysis = await this.generateAnalysis(state);
       return analysis;
-
     } catch (error) {
       console.error("Error in matching agent:", error);
       return "An error occurred during the matching process. Please check the logs for details.";
