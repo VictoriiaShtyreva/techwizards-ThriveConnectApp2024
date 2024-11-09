@@ -92,51 +92,56 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section className="grid md:grid-cols-2 gap-8 mb-16">
-          {/* Render For Job Seekers Card only if no token, or role is company */}
-          {(!userRole || userRole === "company") && (
-            <Card className="overflow-hidden group hover:shadow-2xl transition-shadow duration-300">
-              <CardContent className="p-6 relative">
-                <Briefcase className="w-12 h-12 text-purple-500 mb-4 relative z-10" />
-                <h2 className="text-2xl font-bold mb-2 relative z-10">
-                  For Job Seekers
-                </h2>
-                <p className="text-gray-600 mb-4 relative z-10">
-                  Discover opportunities that match your skills, experience, and
-                  career goals. Swipe right on your dream job!
-                </p>
-                <Button variant="link" asChild className="group relative z-10">
-                  <Link to="/job-seeker" className="flex items-center">
-                    Create Profile
-                    <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
-          )}
+        <section
+  className={`grid gap-8 mb-16 ${
+    !userRole ? "md:grid-cols-2" : "md:grid-cols-1 place-items-center"
+  }`}
+>
+  {/* Render For Job Seekers Card only if no token, or role is company */}
+  {(!userRole || userRole === "company") && (
+    <Card className="overflow-hidden group hover:shadow-2xl transition-shadow duration-300 w-full max-w-lg">
+      <CardContent className="p-6 relative">
+        <Briefcase className="w-12 h-12 text-purple-500 mb-4 relative z-10" />
+        <h2 className="text-2xl font-bold mb-2 relative z-10">
+          For Job Seekers
+        </h2>
+        <p className="text-gray-600 mb-4 relative z-10">
+          Discover opportunities that match your skills, experience, and
+          career goals. Swipe right on your dream job!
+        </p>
+        <Button variant="link" asChild className="group relative z-10">
+          <Link to="/job-seeker" className="flex items-center">
+            Create Profile
+            <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </Button>
+      </CardContent>
+    </Card>
+  )}
 
-          {/* Render For Companies Card only if no token, or role is jobseeker */}
-          {(!userRole || userRole === "jobseeker") && (
-            <Card className="overflow-hidden group hover:shadow-2xl transition-shadow duration-300">
-              <CardContent className="p-6 relative">
-                <Building className="w-12 h-12 text-indigo-500 mb-4 relative z-10" />
-                <h2 className="text-2xl font-bold mb-2 relative z-10">
-                  For Companies
-                </h2>
-                <p className="text-gray-600 mb-4 relative z-10">
-                  Find the perfect candidates for your open positions. Swipe
-                  right on talent that fits your company culture.
-                </p>
-                <Button variant="link" asChild className="group relative z-10">
-                  <Link to="/company" className="flex items-center">
-                    Post a Job
-                    <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
-          )}
-        </section>
+  {/* Render For Companies Card only if no token, or role is jobseeker */}
+  {(!userRole || userRole === "jobseeker") && (
+    <Card className="overflow-hidden group hover:shadow-2xl transition-shadow duration-300 w-full max-w-lg">
+      <CardContent className="p-6 relative">
+        <Building className="w-12 h-12 text-indigo-500 mb-4 relative z-10" />
+        <h2 className="text-2xl font-bold mb-2 relative z-10">
+          For Companies
+        </h2>
+        <p className="text-gray-600 mb-4 relative z-10">
+          Find the perfect candidates for your open positions. Swipe
+          right on talent that fits your company culture.
+        </p>
+        <Button variant="link" asChild className="group relative z-10">
+          <Link to="/company" className="flex items-center">
+            Post a Job
+            <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </Button>
+      </CardContent>
+    </Card>
+  )}
+</section>
+
 
         <section className="text-center mb-16 relative">
           <h2 className="text-3xl font-bold mb-6">How It Works</h2>
