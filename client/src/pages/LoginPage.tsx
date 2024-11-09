@@ -23,6 +23,8 @@ const LoginPage: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
+  
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -41,7 +43,7 @@ const LoginPage: React.FC = () => {
         progress: undefined,
       });
       console.log()
-      navigate("/")
+      navigate("/profilePage")
     } catch (err) {
       console.error("Failed to login:", err);
       toast.error("Login failed. Please try again.", {

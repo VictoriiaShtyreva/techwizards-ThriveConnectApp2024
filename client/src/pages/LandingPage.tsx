@@ -12,7 +12,6 @@ import {
   ThumbsUp,
 } from "lucide-react";
 import Marquee from "@/components/ui/marquee";
-import { useFetchCompanyUserQuery, useFetchJobseekerUserQuery } from "@/redux/api/fetchUserSlice";
 
 const jobTitles = [
   "Software Engineer",
@@ -36,27 +35,6 @@ export default function LandingPage() {
 
     return () => clearInterval(interval);
   }, []);
-
-      // Fetch company user information
-      const {
-        data: companyUser,
-        error: companyError,
-        isLoading: isCompanyLoading,
-      } = useFetchCompanyUserQuery(undefined);  // Passing undefined
-    
-      // Fetch jobseeker user information
-      const {
-        data: jobseekerUser,
-        error: jobseekerError,
-        isLoading: isJobseekerLoading,
-      } = useFetchJobseekerUserQuery(undefined);
-  
-      if (isCompanyLoading || isJobseekerLoading) {
-        return <div>Loading...</div>;
-      }
-  
-      console.log("companyUser", companyUser)
-      console.log("jobseekerUser", jobseekerUser)
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-indigo-100 overflow-hidden">

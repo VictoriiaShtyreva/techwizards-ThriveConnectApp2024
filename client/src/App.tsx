@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import LandingPage from "./pages/LandingPage";
 import ResourcesPage from "./pages/ResourcesPage";
 import LoginPage from "./pages/LoginPage";
+import ProfilePage from "./pages/ProfilePage";
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/resources" element={<ResourcesPage />} />
           <Route path="/login" element={<LoginPage />}/>
+          <Route path="/profilePage" element={<ProfilePage />}/>
         </Route>
       </Routes>
       <ToastContainer
