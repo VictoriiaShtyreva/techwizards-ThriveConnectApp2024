@@ -17,8 +17,6 @@ const JobSeekerSignUpPage: React.FC = () => {
   const [wellBeingPreferences, setWellBeingPreferences] = useState<string[]>(
     []
   );
-  const [jobSeekerProfileSummary, setJobSeekerProfileSummary] = useState("");
-
   const [createJobSeeker, { isLoading }] = useCreateJobSeekerMutation();
   const navigate = useNavigate();
 
@@ -34,7 +32,6 @@ const JobSeekerSignUpPage: React.FC = () => {
         position,
         experience,
         wellBeingPreferences,
-        jobSeekerProfile_summary: jobSeekerProfileSummary,
         jobSeekerProfile_embedding: [],
         matchingList: [],
       };
@@ -61,7 +58,6 @@ const JobSeekerSignUpPage: React.FC = () => {
       setPosition("");
       setExperience("");
       setWellBeingPreferences([]);
-      setJobSeekerProfileSummary("");
     } catch (error) {
       console.error("Failed to create account:", error);
       toast.error("Sign-up failed. Please try again.", {
@@ -209,19 +205,6 @@ const JobSeekerSignUpPage: React.FC = () => {
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               />
             </div>
-
-            <div className="mb-6">
-              <label className="block text-gray-700 text-sm font-bold mb-2">
-                Profile Summary
-              </label>
-              <textarea
-                value={jobSeekerProfileSummary}
-                onChange={(e) => setJobSeekerProfileSummary(e.target.value)}
-                placeholder="Write a brief summary about yourself"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              ></textarea>
-            </div>
-
             <motion.button
               type="submit"
               className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"

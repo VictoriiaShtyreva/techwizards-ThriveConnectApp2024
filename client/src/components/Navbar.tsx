@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { Briefcase, Building, BookOpen, Menu, X, User } from "lucide-react";
@@ -8,7 +8,7 @@ import logo from "@/assets/logo.png";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrollY, setScrollY] = useState(0);
-
+  const navigate = useNavigate();
   const user = localStorage.getItem("token");
 
   useEffect(() => {
@@ -73,28 +73,62 @@ export default function Navbar() {
                 />
               </Link>
             ))}
-            {user
-            ? <div>
+            {user ? (
+              <div className="flex space-x-2">
+                {/* Profile Page Button */}
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Link to="/profile">
+                    <Button className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                      Profile Page
+                    </Button>
+                  </Link>
+                </motion.div>
 
+                {/* Log Out Button */}
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Button
+                    className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    onClick={() => {
+                      // Log out logic (e.g., remove token and redirect)
+                      localStorage.removeItem("token");
+                      navigate("/login");
+                    }}
+                  >
+                    Log Out
+                  </Button>
+                </motion.div>
               </div>
-            : <div>
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Link to="/login">
-                <Button variant="outline" className="mr-2">
-                  <User className="w-4 h-4 mr-2" />
-                  Sign In
-                </Button>
-              </Link>
-            </motion.div>
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Link to="/signup">
-                <Button className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600">
-                  Sign Up
-                </Button>
-              </Link>
-            </motion.div>
-            </div>
-            }
+            ) : (
+              <div className="flex space-x-2">
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Link to="/login">
+                    <Button variant="outline" className="mr-2">
+                      <User className="w-4 h-4 mr-2" />
+                      Sign In
+                    </Button>
+                  </Link>
+                </motion.div>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Link to="/signup">
+                    <Button className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600">
+                      Sign Up
+                    </Button>
+                  </Link>
+                </motion.div>
+              </div>
+            )}
           </div>
 
           {/* Mobile menu button */}

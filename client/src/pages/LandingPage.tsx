@@ -93,7 +93,7 @@ export default function LandingPage() {
                 career goals. Swipe right on your dream job!
               </p>
               <Button variant="link" asChild className="group relative z-10">
-                <Link to="/job-seeker" className="flex items-center">
+                <Link to="/signup" className="flex items-center">
                   Create Profile
                   <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
                 </Link>
@@ -112,8 +112,8 @@ export default function LandingPage() {
                 on talent that fits your company culture.
               </p>
               <Button variant="link" asChild className="group relative z-10">
-                <Link to="/company" className="flex items-center">
-                  Post a Job
+                <Link to="/signup" className="flex items-center">
+                  Create Proile
                   <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
@@ -121,7 +121,7 @@ export default function LandingPage() {
           </Card>
         </section>
 
-        <section className="text-center mb-16 relative">
+        <section id="how-it-works" className="text-center mb-16 relative">
           <h2 className="text-3xl font-bold mb-6">How It Works</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {[
@@ -151,7 +151,7 @@ export default function LandingPage() {
                 onMouseLeave={() => setShowCard(false)}
               >
                 <div
-                  className={`bg-white rounded-lg p-6 shadow-md transform transition-all duration-300 ${
+                  className={`bg-white rounded-lg p-6 shadow-md transform transition-all duration-300 h-64 ${
                     showCard === index ? "scale-105" : "scale-100"
                   }`}
                 >
