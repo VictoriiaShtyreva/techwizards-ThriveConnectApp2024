@@ -5,6 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { User, Briefcase, Building, Eye, EyeOff } from "lucide-react";
 
+
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,6 +26,11 @@ const LoginPage: React.FC = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+
+      const result = await login({ email, password }).unwrap();
+      // Store token in local storage or state
+      localStorage.setItem('token', result.token);
+      alert('Login successful!');
       const result = await login({ email, password, role }).unwrap();
       localStorage.setItem("token", result.token);
       toast.success("Login successful!", {
@@ -51,6 +57,28 @@ const LoginPage: React.FC = () => {
   };
 
   return (
+    <form onSubmit={handleLogin}>
+      <div>
+        <label>Email:</label>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+      </div>
+      <div>
+        <label>Password:</label>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </div>
+      <button type="submit" disabled={isLoading}>
+        {isLoading ? 'Logging in...' : 'Login'}
+      </button>
+      {error && <p>Error: {error.message}</p>}//-
+    </form>
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-400 to-pink-500 p-4">
       <style>{`
         :root {
