@@ -1,17 +1,152 @@
-### Create a company profile:
+### Create a company profile: 1
 POST http://localhost:3003/api/v1/companies
 Content-Type: application/json
 
-{
-  "name": "aava",
-  "email": "contact@aava.com",
-  "password": "securepassword",
-  "companyCulture": "Innovative and supportive",
-  "wellBeingMetrics": "Work-life balance, Employee support",
-  "jobTitle": "Software Engineer",
-  "skillsRequired": ["JavaScript", "Node.js", "Express"],
-  "experienceRequired": 5
-}
+  {
+    "name": "GreenTech Solutions",
+    "email": "contact@greentech.com",
+    "password": "greentechSecure456",
+    "companyCulture": "Eco-friendly and collaborative",
+    "wellBeingMetrics": "Flexible work hours, Sustainable initiatives",
+    "jobTitle": "Environmental Consultant",
+    "skillsRequired": ["Environmental Science", "Data Analysis", "Project Management"],
+    "experienceRequired": 3
+  }
+
+### Create a company profile: 2
+POST http://localhost:3003/api/v1/companies
+Content-Type: application/json
+
+  {
+    "name": "SparkFinance",
+    "email": "hr@sparkfinance.com",
+    "password": "SparkPass789",
+    "companyCulture": "Goal-oriented and analytical",
+    "wellBeingMetrics": "Clear career path, Financial incentives",
+    "jobTitle": "Financial Analyst",
+    "skillsRequired": ["Financial Analysis", "Excel", "Forecasting"],
+    "experienceRequired": 5
+  }
+
+### Create a company profile: 3
+POST http://localhost:3003/api/v1/companies
+Content-Type: application/json
+
+  {
+    "name": "EduFirst",
+    "email": "jobs@edufirst.org",
+    "password": "EduFirstPass123",
+    "companyCulture": "Nurturing and inclusive",
+    "wellBeingMetrics": "On-site childcare, Professional development",
+    "jobTitle": "Curriculum Developer",
+    "skillsRequired": ["Curriculum Design", "Lesson Planning", "Early Childhood Education"],
+    "experienceRequired": 4
+  }
+
+### Create a company profile: 4
+POST http://localhost:3003/api/v1/companies
+Content-Type: application/json
+
+  {
+    "name": "CulinaryArts Inc.",
+    "email": "careers@culinaryarts.com",
+    "password": "ChefLife456",
+    "companyCulture": "Creative and high-paced",
+    "wellBeingMetrics": "Free meals, Creative freedom",
+    "jobTitle": "Head Chef",
+    "skillsRequired": ["Culinary Arts", "Menu Planning", "Food Safety"],
+    "experienceRequired": 8
+  }
+
+### Create a company profile: 5
+POST http://localhost:3003/api/v1/companies
+Content-Type: application/json
+
+  {
+    "name": "TechSphere",
+    "email": "apply@techsphere.com",
+    "password": "TechInnovate321",
+    "companyCulture": "Innovative and fast-paced",
+    "wellBeingMetrics": "Remote work options, Health insurance",
+    "jobTitle": "Software Engineer",
+    "skillsRequired": ["Python", "Django", "REST APIs"],
+    "experienceRequired": 5
+  }
+
+### Create a company profile: 6
+POST http://localhost:3003/api/v1/companies
+Content-Type: application/json
+
+  {
+    "name": "CityBuild",
+    "email": "hr@citybuild.com",
+    "password": "CityBuildSafe123",
+    "companyCulture": "Safety-first and supportive",
+    "wellBeingMetrics": "Safety training, Health benefits",
+    "jobTitle": "Construction Project Manager",
+    "skillsRequired": ["Project Management", "Safety Compliance", "Budget Management"],
+    "experienceRequired": 7
+  }
+
+### Create a company profile: 7
+POST http://localhost:3003/api/v1/companies
+Content-Type: application/json
+
+  {
+    "name": "GlobeTravel",
+    "email": "recruitment@globetravel.com",
+    "password": "TravelPass2024",
+    "companyCulture": "Customer-focused and dynamic",
+    "wellBeingMetrics": "Travel perks, Wellness programs",
+    "jobTitle": "Travel Consultant",
+    "skillsRequired": ["Customer Service", "Travel Planning", "CRM"],
+    "experienceRequired": 3
+  }
+
+### Create a company profile: 8
+POST http://localhost:3003/api/v1/companies
+Content-Type: application/json
+
+  {
+    "name": "HealthCore Clinics",
+    "email": "jobs@healthcore.com",
+    "password": "HealthCore123",
+    "companyCulture": "Patient-centered and empathetic",
+    "wellBeingMetrics": "On-site health services, Mental health support",
+    "jobTitle": "Registered Nurse",
+    "skillsRequired": ["Nursing", "Patient Care", "Medical Knowledge"],
+    "experienceRequired": 5
+  }
+
+### Create a company profile: 9
+POST http://localhost:3003/api/v1/companies
+Content-Type: application/json
+
+  {
+    "name": "DesignHive",
+    "email": "hr@designhive.com",
+    "password": "DesignPass321",
+    "companyCulture": "Creative and collaborative",
+    "wellBeingMetrics": "Creative freedom, Remote work flexibility",
+    "jobTitle": "Graphic Designer",
+    "skillsRequired": ["Graphic Design", "Illustration", "Branding"],
+    "experienceRequired": 3
+  }
+
+### Create a company profile: 10
+POST http://localhost:3003/api/v1/companies
+Content-Type: application/json
+
+  {
+    "name": "FutureFoods",
+    "email": "careers@futurefoods.com",
+    "password": "HealthyFuture2023",
+    "companyCulture": "Sustainable and health-focused",
+    "wellBeingMetrics": "Health benefits, Employee discounts",
+    "jobTitle": "Food Scientist",
+    "skillsRequired": ["Food Science", "R&D", "Quality Control"],
+    "experienceRequired": 4
+  }
 
 ### Get all companies:
 GET http://localhost:3003/api/v1/companies/

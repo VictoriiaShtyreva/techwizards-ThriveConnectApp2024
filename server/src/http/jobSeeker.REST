@@ -1,16 +1,141 @@
-### Create a Job Seeker
+### Create a Job Seeker 1
 POST http://localhost:3003/api/v1/jobseekers
 Content-Type: application/json
 
-{
-  "name": "John Doe 456",
-  "email": "johndoe456@example.com",
-  "password": "securePassword123",
-  "skills": ["JavaScript", "Node.js", "Express"],
-  "position": "Backend Developer",
-  "experience": 5,
-  "wellBeingPreferences": ["Work-life balance", "Remote work"]
-}
+  {
+    "name": "John Doe",
+    "email": "johndoe@example.com",
+    "password": "SecurePassword789",
+    "skills": ["Customer Service", "Communication", "Problem Solving"],
+    "position": "Customer Service Representative",
+    "experience": 3,
+    "wellBeingPreferences": ["Supportive team", "Flexible hours", "Professional development"]
+  }
 
-### Get All Job Seekers
-GET http://localhost:3003/api/v1/jobseekers
+### Create a Job Seeker 2
+POST http://localhost:3003/api/v1/jobseekers
+Content-Type: application/json
+
+  {
+    "name": "Maria Lopez",
+    "email": "maria.lopez@example.com",
+    "password": "StrongPassword123",
+    "skills": ["Project Management", "Agile Methodologies", "Budget Management"],
+    "position": "Project Manager",
+    "experience": 7,
+    "wellBeingPreferences": ["Work-life balance", "Clear career progression", "On-site amenities"]
+  }
+
+### Create a Job Seeker 3
+POST http://localhost:3003/api/v1/jobseekers
+Content-Type: application/json
+
+  {
+    "name": "James Chen",
+    "email": "james.chen@example.com",
+    "password": "MySecurePass567",
+    "skills": ["Inventory Management", "Supply Chain Logistics", "Quality Control"],
+    "position": "Warehouse Manager",
+    "experience": 10,
+    "wellBeingPreferences": ["Safety protocols", "On-site health services", "Flexible shifts"]
+  }
+
+### Create a Job Seeker 4
+POST http://localhost:3003/api/v1/jobseekers
+Content-Type: application/json
+
+  {
+    "name": "Lucy Graham",
+    "email": "lucy.graham@example.com",
+    "password": "PasswordLucy2023",
+    "skills": ["Marketing Strategy", "SEO", "Content Creation"],
+    "position": "Digital Marketing Specialist",
+    "experience": 5,
+    "wellBeingPreferences": ["Creative freedom", "Collaborative culture", "Remote work"]
+  }
+
+### Create a Job Seeker 5
+POST http://localhost:3003/api/v1/jobseekers
+Content-Type: application/json
+
+  {
+    "name": "Nina Robinson",
+    "email": "nina.robinson@example.com",
+    "password": "NinaSecure789",
+    "skills": ["Graphic Design", "Illustration", "Branding"],
+    "position": "Graphic Designer",
+    "experience": 4,
+    "wellBeingPreferences": ["Creative workspace", "Flexible hours", "Remote work"]
+  }
+
+### Create a Job Seeker 6
+POST http://localhost:3003/api/v1/jobseekers
+Content-Type: application/json
+
+  {
+    "name": "Ahmed Raza",
+    "email": "ahmed.raza@example.com",
+    "password": "AhmedPass1234",
+    "skills": ["Sales", "Client Relationship Management", "Negotiation"],
+    "position": "Sales Executive",
+    "experience": 8,
+    "wellBeingPreferences": ["Performance incentives", "Career development", "Team outings"]
+  }
+
+### Create a Job Seeker 7
+POST http://localhost:3003/api/v1/jobseekers
+Content-Type: application/json
+
+  {
+    "name": "Elena Petrova",
+    "email": "elena.petrova@example.com",
+    "password": "ElenaStrong123",
+    "skills": ["Financial Analysis", "Forecasting", "Risk Assessment"],
+    "position": "Financial Analyst",
+    "experience": 6,
+    "wellBeingPreferences": ["Professional growth", "Training programs", "Flexible hours"]
+  }
+
+### Create a Job Seeker 8
+POST http://localhost:3003/api/v1/jobseekers
+Content-Type: application/json
+
+  {
+    "name": "Rajiv Patel",
+    "email": "rajiv.patel@example.com",
+    "password": "SafePassRajiv",
+    "skills": ["Cooking", "Kitchen Management", "Food Safety"],
+    "position": "Chef",
+    "experience": 12,
+    "wellBeingPreferences": ["Well-equipped kitchen", "Work-life balance", "Creative freedom"]
+  }
+
+### Create a Job Seeker 9
+POST http://localhost:3003/api/v1/jobseekers
+Content-Type: application/json
+
+  {
+    "name": "Tom Riley",
+    "email": "tom.riley@example.com",
+    "password": "SecureTom2024",
+    "skills": ["HVAC Maintenance", "Electrical Repair", "Customer Service"],
+    "position": "Maintenance Technician",
+    "experience": 5,
+    "wellBeingPreferences": ["Health benefits", "Tool allowances", "On-the-job training"]
+  }
+
+### Create a Job Seeker 10
+POST http://localhost:3003/api/v1/jobseekers
+Content-Type: application/json
+
+  {
+    "name": "Priya Kaur",
+    "email": "priya.kaur@example.com",
+    "password": "SecurePassPriya",
+    "skills": ["Early Childhood Education", "Lesson Planning", "Behavior Management"],
+    "position": "Preschool Teacher",
+    "experience": 6,
+    "wellBeingPreferences": ["Supportive environment", "On-site childcare", "Flexible scheduling"]
+  }
+
+
