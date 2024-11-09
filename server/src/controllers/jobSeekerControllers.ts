@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from "express";
-import { IJobSeeker } from "../interfaces/IJobSeeker";
 import {
   createJobSeeker,
   getAllJobSeekers,
@@ -7,7 +6,6 @@ import {
   updateJobSeekerById,
   deleteJobSeekerById,
 } from "../services/jobSeekerServices";
-import { ApiError } from "../errors/ApiError";
 
 // Create Job Seeker
 export const createJobSeekerController = async (

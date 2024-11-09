@@ -35,14 +35,12 @@ const ResourcesPage: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">Work Well-Being Resources</h1>
-
       <input
         type="text"
         placeholder="Search..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="mb-4 p-2 border rounded w-full"
+        className="mt-20 mb-4 p-2 border rounded w-full"
       />
 
       <div className="mb-4">
