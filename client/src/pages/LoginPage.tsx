@@ -5,13 +5,12 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { User, Briefcase, Building, Eye, EyeOff } from "lucide-react";
 
-
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState<"jobseeker" | "company">("jobseeker");
   const [showPassword, setShowPassword] = useState(false);
-  const [login, { isLoading }] = useLoginMutation();
+  const [login, { isLoading, error }] = useLoginMutation();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -27,11 +26,10 @@ const LoginPage: React.FC = () => {
     e.preventDefault();
     try {
 
-      const result = await login({ email, password }).unwrap();
+      const result = await login({ email, password, role }).unwrap();
       // Store token in local storage or state
       localStorage.setItem('token', result.token);
       alert('Login successful!');
-      const result = await login({ email, password, role }).unwrap();
       localStorage.setItem("token", result.token);
       toast.success("Login successful!", {
         position: "top-right",
@@ -57,29 +55,32 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleLogin}>
-      <div>
-        <label>Email:</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </div>
-      <div>
-        <label>Password:</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      <button type="submit" disabled={isLoading}>
-        {isLoading ? 'Logging in...' : 'Login'}
-      </button>
-      {error && <p>Error: {error.message}</p>}//-
-    </form>
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-400 to-pink-500 p-4">
+    <div>
+      <form onSubmit={handleLogin}>
+        <div>
+          <label>Email:</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter your email"
+            title="Email"
+          />
+        </div>
+        <div>
+          <label>Password:</label>
+          <input
+            type="password"
+            value={password}
+            placeholder="Enter your password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? 'Logging in...' : 'Login'}
+        </button>
+      </form>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-400 to-pink-500 p-4">
       <style>{`
         :root {
           --hue: 0;
@@ -223,6 +224,7 @@ const LoginPage: React.FC = () => {
         </form>
       </motion.div>
       <ToastContainer />
+      </div>
     </div>
   );
 };
