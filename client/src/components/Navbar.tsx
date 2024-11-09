@@ -9,6 +9,8 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrollY, setScrollY] = useState(0);
 
+  const user = localStorage.getItem("token");
+
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener("scroll", handleScroll);
@@ -71,7 +73,12 @@ export default function Navbar() {
                 />
               </Link>
             ))}
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            {user
+            ? <div>
+
+              </div>
+            : <div>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Link to="/login">
                 <Button variant="outline" className="mr-2">
                   <User className="w-4 h-4 mr-2" />
@@ -86,6 +93,8 @@ export default function Navbar() {
                 </Button>
               </Link>
             </motion.div>
+            </div>
+            }
           </div>
 
           {/* Mobile menu button */}
