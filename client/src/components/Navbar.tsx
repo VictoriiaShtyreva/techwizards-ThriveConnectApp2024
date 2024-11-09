@@ -32,12 +32,11 @@ export default function Navbar() {
               </Link>
             </div>
           </div>
-          <div className="hidden sm:ml-6 sm:flex sm:items-center">
-            <Button variant="outline" className="mr-2">
-              Sign In
-            </Button>
-            <Button>Sign Up</Button>
+          <Link to="/login">
+          <Button variant="outline">Sign In</Button><div className="hidden sm:ml-6 sm:flex sm:items-center">
           </div>
+          </Link>
+          <Button>Sign Up</Button>
         </div>
       </div>
     </nav>
