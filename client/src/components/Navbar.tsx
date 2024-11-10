@@ -1,6 +1,15 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { motion, AnimatePresence } from "framer-motion";
 import { Briefcase, Building, BookOpen, Menu, X, User } from "lucide-react";
 import logo from "@/assets/logo.png";
@@ -23,11 +32,9 @@ export default function Navbar() {
         setUserId(decodedToken.id);
       } catch (error) {
         console.error("Failed to decode token:", error);
-        // Handle token error (e.g., log out user or redirect to login)
       }
     }
   }, []);
-
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -43,26 +50,19 @@ export default function Navbar() {
 
   return (
     <motion.nav
-      className="fixed w-full z-50 bg-white shadow-lg"
+      className="fixed w-full z-50 bg-white shadow-md"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: "spring", stiffness: 100 }}
-      style={{
-        background: `linear-gradient(to right, rgba(255,255,255,${
-          1 - scrollY / 500
-        }), rgba(236,72,153,${scrollY / 500}))`,
-      }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="flex-shrink-0 flex items-center">
-              <motion.img
+              <img
                 src={logo}
                 alt="ThriveConnect Logo"
-                className="h-14 w-15"
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.5 }}
+                className="h-14 w-auto"
               />
             </Link>
           </div>
@@ -73,84 +73,64 @@ export default function Navbar() {
               <Link
                 key={item.title}
                 to={item.path}
-                className="relative text-gray-600 hover:text-pink-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ease-in-out overflow-hidden group"
+                className="text-gray-600 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ease-in-out"
               >
                 <motion.div
                   className="flex items-center space-x-1"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ y: -2 }}
+                  whileTap={{ y: 0 }}
                 >
                   <item.icon className="w-4 h-4" />
                   <span>{item.title}</span>
                 </motion.div>
-                <motion.div
-                  className="absolute bottom-0 left-0 w-full h-0.5 bg-pink-600"
-                  initial={{ scaleX: 0 }}
-                  whileHover={{ scaleX: 1 }}
-                  transition={{ duration: 0.2 }}
-                />
               </Link>
             ))}
             {user ? (
-              <div className="flex space-x-2">
-                {/* Profile Page Button */}
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Link
-                    to={
-                      userRole === "jobseeker"
-                        ? `/jobSeeker-profile-page/${userId}`
-                        : `/company-profile-page/${userId}`
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Avatar className="cursor-pointer">
+                    <AvatarImage
+                      src="https://github.com/shadcn.png"
+                      alt="@shadcn"
+                    />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    onClick={() =>
+                      navigate(
+                        userRole === "jobseeker"
+                          ? `/jobSeeker-profile-page/${userId}`
+                          : `/company-profile-page/${userId}`
+                      )
                     }
                   >
-                    <Button className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                      Profile Page
-                    </Button>
-                  </Link>
-                </motion.div>
-
-                {/* Log Out Button */}
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Button
-                    className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    Profile
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
                     onClick={() => {
-                      // Log out logic (e.g., remove token and redirect)
                       localStorage.removeItem("token");
                       navigate("/login");
                     }}
                   >
-                    Log Out
-                  </Button>
-                </motion.div>
-              </div>
+                    Log out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             ) : (
               <div className="flex space-x-2">
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
+                <Button variant="outline" asChild>
                   <Link to="/login">
-                    <Button variant="outline" className="mr-2">
-                      <User className="w-4 h-4 mr-2" />
-                      Sign In
-                    </Button>
+                    <User className="w-4 h-4 mr-2" />
+                    Sign In
                   </Link>
-                </motion.div>
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Link to="/signup">
-                    <Button className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600">
-                      Sign Up
-                    </Button>
-                  </Link>
-                </motion.div>
+                </Button>
+                <Button asChild>
+                  <Link to="/signup">Sign Up</Link>
+                </Button>
               </div>
             )}
           </div>
@@ -160,14 +140,14 @@ export default function Navbar() {
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
             >
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={isOpen ? "close" : "open"}
-                  initial={{ opacity: 0, rotate: -90 }}
-                  animate={{ opacity: 1, rotate: 0 }}
-                  exit={{ opacity: 0, rotate: 90 }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
                   transition={{ duration: 0.2 }}
                 >
                   {isOpen ? (
@@ -197,7 +177,7 @@ export default function Navbar() {
                 <Link
                   key={item.title}
                   to={item.path}
-                  className="text-gray-600 hover:text-pink-600 hover:bg-pink-50 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ease-in-out"
+                  className="text-gray-600 hover:text-indigo-600 hover:bg-indigo-50 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ease-in-out"
                 >
                   <motion.div
                     className="flex items-center space-x-2"
@@ -210,17 +190,45 @@ export default function Navbar() {
                 </Link>
               ))}
               <div className="mt-4 space-y-2">
-                <Link to="/login">
-                  <Button variant="outline" className="w-full">
-                    <User className="w-4 h-4 mr-2" />
-                    Sign In
-                  </Button>
-                </Link>
-                <Link to="/signup">
-                  <Button className="w-full bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600">
-                    Sign Up
-                  </Button>
-                </Link>
+                {user ? (
+                  <>
+                    <Button
+                      variant="outline"
+                      className="w-full"
+                      onClick={() =>
+                        navigate(
+                          userRole === "jobseeker"
+                            ? `/jobSeeker-profile-page/${userId}`
+                            : `/company-profile-page/${userId}`
+                        )
+                      }
+                    >
+                      Profile
+                    </Button>
+                    <Button
+                      variant="destructive"
+                      className="w-full"
+                      onClick={() => {
+                        localStorage.removeItem("token");
+                        navigate("/login");
+                      }}
+                    >
+                      Log Out
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button variant="outline" className="w-full" asChild>
+                      <Link to="/login">
+                        <User className="w-4 h-4 mr-2" />
+                        Sign In
+                      </Link>
+                    </Button>
+                    <Button className="w-full" asChild>
+                      <Link to="/signup">Sign Up</Link>
+                    </Button>
+                  </>
+                )}
               </div>
             </div>
           </motion.div>

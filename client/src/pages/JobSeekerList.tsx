@@ -27,6 +27,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Progress } from "@/components/ui/progress";
+import TransitionEffect from "@/components/ui/TransitionEffect";
 
 export default function JobSeekerList() {
   const { data: jobSeekers, error, isLoading } = useGetAllJobSeekersQuery();
@@ -43,6 +44,7 @@ export default function JobSeekerList() {
         </p>
       </div>
     );
+
   if (error)
     return (
       <div className="flex flex-col items-center justify-center h-screen">
@@ -82,6 +84,7 @@ export default function JobSeekerList() {
 
   return (
     <div className="container mx-auto p-8 bg-gray-50 min-h-screen">
+      <TransitionEffect />
       <h1 className="text-4xl font-bold mb-8 mt-16 text-center text-gray-800">
         Discover Top Talent
       </h1>

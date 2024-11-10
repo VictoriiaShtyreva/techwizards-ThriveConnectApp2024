@@ -23,6 +23,7 @@ import {
   MapPin,
   Star,
 } from "lucide-react";
+import TransitionEffect from "@/components/ui/TransitionEffect";
 
 const CompaniesList = () => {
   const { data, error, isLoading } = useGetAllCompaniesQuery();
@@ -43,6 +44,7 @@ const CompaniesList = () => {
 
   return (
     <div className="container mx-auto py-12 px-4">
+      <TransitionEffect />
       <h1 className="text-5xl font-bold mt-16 mb-8 text-center bg-gradient-to-r from-primary to-primary-foreground text-transparent bg-clip-text">
         Discover Amazing Companies
       </h1>
