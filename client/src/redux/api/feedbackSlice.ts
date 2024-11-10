@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const feedbackSlice = createApi({
   reducerPath: 'feedbackSlice',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:3003/api/v1',
+    baseUrl:  import.meta.env.VITE_BASE_URL ||'http://localhost:3003/api/v1',
     prepareHeaders: (headers) => {
       const token = localStorage.getItem('token');
       if (token) {
