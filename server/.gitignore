@@ -6,3 +6,4 @@ yarn.lock
 coverage
 yarn-error.log
 package-lock.json
+.vercel
