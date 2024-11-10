@@ -14,6 +14,7 @@ import CompanyProfilePage from "./pages/CompanyProfilePage";
 import JobSeekerList from "./pages/JobSeekerList";
 import CompaniesList from "./pages/CompaniesList";
 import FeedbackPage from "./pages/FeedbackPage";
+import CompaniesForUser from "./pages/CompaniesForUser";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="/jobseekers" element={<JobSeekerList/>}/>
           <Route path="/companies" element={<CompaniesList/>}/>
           <Route path="/companies/:id/feedbacks" element={<FeedbackPage/>}/>
+          <Route path="/companies/:id" element={<CompaniesForUser/>}/>
         </Route>
       </Routes>
       <ToastContainer

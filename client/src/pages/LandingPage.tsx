@@ -26,7 +26,7 @@ export default function LandingPage() {
   const [currentJobTitle, setCurrentJobTitle] = useState(jobTitles[0]);
   const [showCard, setShowCard] = useState(false);
   const [userRole, setUserRole] = useState<string | null>(null);
-  const [idFromToken, setIdFromToken] = useState(null);
+  const [userId, setUserId] = useState(null);
 
   const savedToken = localStorage.getItem("token");
 
@@ -45,7 +45,7 @@ export default function LandingPage() {
     if (savedToken) {
       const decodedToken: any = jwtDecode(savedToken);
       setUserRole(decodedToken.role);
-      setIdFromToken(decodedToken.id)
+      setUserId(decodedToken.id)
     }
   }, [savedToken]);
 
@@ -109,7 +109,7 @@ export default function LandingPage() {
                   career goals. Swipe right on your dream job!
                 </p>
                 <Button variant="link" asChild className="group relative z-10">
-                  <Link to={`/job-seeker/${idFromToken}`} className="flex items-center">
+                  <Link to={`/job-seeker/${userId}`} className="flex items-center">
                     Explore more
                     <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
                   </Link>
@@ -131,7 +131,7 @@ export default function LandingPage() {
                   right on talent that fits your company culture.
                 </p>
                 <Button variant="link" asChild className="group relative z-10">
-                  <Link to={`/company/${idFromToken}`} className="flex items-center">
+                  <Link to={`/companies/${userId}`} className="flex items-center">
                     Explore more
                     <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
                   </Link>
