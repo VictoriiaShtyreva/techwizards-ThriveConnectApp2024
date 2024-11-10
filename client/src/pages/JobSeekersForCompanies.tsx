@@ -20,19 +20,23 @@ const JobSeekersForCompanies = () => {
    console.log(matchingJobSeekers)
    
    return (
-      <div className="container mx-auto p-4">
-        <h2 className="text-xl font-semibold mb-4">Matching Job Seekers</h2>
+      <div className="flex flex-col items-center justify-center min-h-screen space-y-6">
+        <h2 className="text-2xl font-semibold mb-4">Matching Job Seekers</h2>
         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {matchingJobSeekers.map((jobSeeker) => (
             <li key={jobSeeker.id} className="bg-white shadow-lg rounded-lg p-6 border border-gray-200">
               <div className="text-lg font-bold text-gray-800">{jobSeeker.name}</div>
               <div className="text-gray-600">Experience: {jobSeeker.experience}</div>
+              <div className="text-gray-700">Position: {jobSeeker.position}</div>
               <div className="text-gray-700">Skills: {jobSeeker.skills?.join(", ")}</div>
-            </li>
+              <div className="text-gray-700">Preferences: {jobSeeker.wellBeingPreferences}</div>
+              <div>{Math.round(jobSeeker.matchingList.find((match) => match.companyId === id)?.score || 0)}</div>
+              </li>
           ))}
         </ul>
       </div>
     );
+    
 }
 
 export default JobSeekersForCompanies
