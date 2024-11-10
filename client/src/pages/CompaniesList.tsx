@@ -10,11 +10,15 @@ const CompaniesList = () => {
 
    console.log(data)
    return (
+    <div className="flex items-center justify-center min-h-screen"> {/* Centers content both horizontally and vertically */}
       <div className="container mx-auto p-4">
-        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto"> {/* Centers the grid */}
           {data &&
             data.map((job) => (
-              <li key={job.id} className="bg-white shadow-lg rounded-lg p-6 border border-gray-200 hover:shadow-xl transition-shadow">
+              <li
+                key={job.id}
+                className="bg-white shadow-lg rounded-lg p-6 border border-gray-200 hover:shadow-xl transition-shadow"
+              >
                 <div className="text-xl font-semibold text-gray-800 mb-2">
                   {job.jobTitle}
                 </div>
@@ -40,8 +44,9 @@ const CompaniesList = () => {
             ))}
         </ul>
       </div>
-    );
-    
+    </div>
+  );
+  
 }
 
 export default CompaniesList
