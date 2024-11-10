@@ -89,7 +89,6 @@ export default function LandingPage() {
               asChild
               className="hover:bg-purple-100 transition-colors duration-300"
             >
-              <Link to="/how-it-works">How It Works</Link>
             </Button>
           </div>
         </section>
