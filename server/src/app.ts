@@ -18,7 +18,16 @@ app.get("/", (req, res) => {
   res.send("API is running.");
 });
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3003",
+      "https://techwizards-thrive-connect-app2024-lgidkszcr.vercel.app/",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
