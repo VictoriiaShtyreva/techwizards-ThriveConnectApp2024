@@ -3,11 +3,11 @@ import dotenv from "dotenv";
 import cors from "cors";
 import { createServer } from "http";
 
-import { errorHandler } from "../src/middleware/errorMiddleware";
-import jobSeekerRoutes from "../src/routes/jobSeekerRoutes";
-import companyRoutes from "../src/routes/companyRoutes";
-import authRoutes from "../src/routes/authRoutes";
-import feedbackRoute from "../src/routes/feedbackRoutes";
+import { errorHandler } from "./middleware/errorMiddleware";
+import jobSeekerRoutes from "./routes/jobSeekerRoutes";
+import companyRoutes from "./routes/companyRoutes";
+import authRoutes from "./routes/authRoutes";
+import feedbackRoute from "./routes/feedbackRoutes";
 
 dotenv.config({ path: ".env" });
 
@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
   res.send("API is running.");
 });
 
-app.use(cors({}));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

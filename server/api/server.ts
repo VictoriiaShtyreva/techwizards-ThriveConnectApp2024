@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { httpServer } from "../api";
+import { httpServer } from ".";
 import { MongoClient } from "mongodb";
 import { JobMatchingAgent } from "./langchain/agents/matchingAgent/agents";
 import dotenv from "dotenv";
