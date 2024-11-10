@@ -31,6 +31,7 @@ import {
   Heart,
   X,
 } from "lucide-react";
+import TransitionEffect from "@/components/ui/TransitionEffect";
 
 const CompanyProfilePage = () => {
   const { id } = useParams<{ id: string }>();
@@ -46,6 +47,7 @@ const CompanyProfilePage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
+      <TransitionEffect />
       <div className="max-w-6xl mx-auto mt-8">
         <Card className="mb-8 overflow-hidden">
           <div className="h-32 bg-gradient-to-r from-purple-500 to-indigo-500" />
