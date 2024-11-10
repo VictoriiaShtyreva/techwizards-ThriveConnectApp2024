@@ -26,6 +26,7 @@ export default function LandingPage() {
   const [currentJobTitle, setCurrentJobTitle] = useState(jobTitles[0]);
   const [showCard, setShowCard] = useState(false);
   const [userRole, setUserRole] = useState<string | null>(null);
+  const [idFromToken, setIdFromToken] = useState(null);
 
   const savedToken = localStorage.getItem("token");
 
@@ -44,8 +45,10 @@ export default function LandingPage() {
     if (savedToken) {
       const decodedToken: any = jwtDecode(savedToken);
       setUserRole(decodedToken.role);
+      setIdFromToken(decodedToken.id)
     }
   }, [savedToken]);
+
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-indigo-100 overflow-hidden">
@@ -92,7 +95,7 @@ export default function LandingPage() {
 
         <section className="grid md:grid-cols-2 gap-8 mb-16">
           {/* Render For Job Seekers Card only if no token, or role is company */}
-          {(!userRole || userRole === "company") && (
+          {(!userRole || userRole === "jobseeker") && (
             <Card className="overflow-hidden group hover:shadow-2xl transition-shadow duration-300">
               <CardContent className="p-6 relative">
                 <Briefcase className="w-12 h-12 text-purple-500 mb-4 relative z-10" />
@@ -104,7 +107,7 @@ export default function LandingPage() {
                   career goals. Swipe right on your dream job!
                 </p>
                 <Button variant="link" asChild className="group relative z-10">
-                  <Link to="/job-seeker" className="flex items-center">
+                  <Link to={`/companies/${idFromToken}`} className="flex items-center">
                     Explore more
                     <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
                   </Link>
@@ -126,7 +129,7 @@ export default function LandingPage() {
                   right on talent that fits your company culture.
                 </p>
                 <Button variant="link" asChild className="group relative z-10">
-                  <Link to="/company" className="flex items-center">
+                  <Link to={`/job-seeker/${idFromToken}`} className="flex items-center">
                     Explore more
                     <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
                   </Link>
