@@ -50,7 +50,6 @@ export default function LandingPage() {
   }, [savedToken]);
 
 
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-indigo-100 overflow-hidden">
       <main className="container mx-auto px-4 py-16 relative">

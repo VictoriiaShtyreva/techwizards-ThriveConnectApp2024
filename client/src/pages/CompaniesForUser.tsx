@@ -6,7 +6,6 @@ const CompaniesForUser = () => {
   const { id } = useParams<{id: string}>();
 
   const { data: jobSeekerData, error: jobSeekerError, isLoading: isJobSeekerLoading } = useGetJobSeekerByIdQuery(id!);
-
   const { data: companiesData, error: companiesError, isLoading: isCompaniesLoading } = useGetAllCompaniesQuery();
 
   if (isJobSeekerLoading || isCompaniesLoading) return <div>Loading...</div>;
