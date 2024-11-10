@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
   res.send("API is running.");
 });
 
-app.use(cors());
+app.use(cors({}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
