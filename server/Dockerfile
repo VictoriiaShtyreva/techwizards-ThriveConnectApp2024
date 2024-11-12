@@ -4,8 +4,8 @@ FROM node:21.1.0
 # Set the working directory
 WORKDIR /app
 
-# Copy package.json and yarn.lock
-COPY package.json yarn.lock ./
+# Copy package.json
+COPY package.json ./
 
 # Install dependencies
 RUN yarn install --production
